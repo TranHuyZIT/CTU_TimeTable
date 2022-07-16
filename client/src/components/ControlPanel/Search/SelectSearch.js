@@ -1,25 +1,23 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
 
-export default function SelectSearch() {
+export default function SelectSearch({title, options}) {
   return (
     <FormControl fullWidth sx={{ m: 1, maxWidth: '100%' }}>
-      <InputLabel variant="standard" htmlFor="uncontrolled-native">
-        Age
+      <InputLabel variant="standard" htmlFor={title}>
+        {title}
       </InputLabel>
       <NativeSelect
-        defaultValue={30}
         inputProps={{
-          name: 'age',
-          id: 'uncontrolled-native',
+          name: title,
+          id: title,
         }}
       >
-        <option value={10}>Ten</option>
-        <option value={20}>Twenty</option>
-        <option value={30}>Thirty</option>
+        {options.map((option) => (
+          <option value={option}>{option}</option>
+        ))}
       </NativeSelect>
     </FormControl>
   );

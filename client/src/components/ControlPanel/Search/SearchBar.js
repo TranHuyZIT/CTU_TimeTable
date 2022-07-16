@@ -15,9 +15,6 @@ export default function SearchBar() {
         placeholder="Tìm Khóa Học"
         inputProps={{ 'aria-label': 'search google maps' }}
       />
-      <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-        <SearchIcon />
-      </IconButton>
     </Paper>
   );
 }

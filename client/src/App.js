@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid'
 import ControlPanel from './components/ControlPanel';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
+import HeadingBar from './components/AppBar/HeadingBar';
 
 const theme = createTheme({
   palette: {
@@ -41,15 +42,15 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
+        <HeadingBar/>
         <Grid container>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <ControlPanel/>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={8}>
 
           </Grid>
         </Grid>
-          
       </ThemeProvider>
     </div>
   );
