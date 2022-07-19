@@ -1,12 +1,40 @@
 .list-item{
     cursor: pointer;
     transition: all 0.1s linear;
+    animation: fadeIn 0.1s linear;
 }
 .list-item:hover{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .scroll{
-    height: 90vh;
+    height: 615px;
     overflow-y:scroll;
     overflow-x:hidden;
+}
+#style-1::-webkit-scrollbar-track
+{
+	/* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: rgb(207, 191, 167);
+}
+
+@keyframes fadeIn {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }

@@ -41,9 +41,11 @@ const theme = createTheme({
 function App() {
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <HeadingBar/>
+      <ThemeProvider theme={theme}>   
         <Grid container>
+          <Grid item xs={12}>
+            <HeadingBar/>
+          </Grid>
           <Grid item xs={4}>
             <ControlPanel/>
           </Grid>
