@@ -18,7 +18,10 @@ export default function SearchBar() {
 
   useEffect(()=>{
     const search = async () => {
-      if (!delayedKeyword) dispatch(courseListSlice.actions.updateCourse([]));
+      if (!delayedKeyword) {
+        dispatch(courseListSlice.actions.updateCourse([]));
+        return;
+      }
       const res = await axios.get(
         `https://api.tools.w5team.com/courses/search/${delayedKeyword}`,
       );

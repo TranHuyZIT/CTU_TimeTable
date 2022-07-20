@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import './CourseList.css'
 import { courseListSelector } from '../../../store/selector';
 import CourseDetailModal from '../Modal/CourseDetailModal';
+import { Typography } from '@mui/material';
 export default function CourseList() {
   const courses = useSelector(courseListSelector);
   const [open, setOpen] = useState(false);
@@ -21,7 +22,7 @@ export default function CourseList() {
   }
   return (
     <List className='scroll' id="style-1" sx={{ width: '100%', bgcolor: 'background.paper', overflowY:'scroll'}}>
-      {courses.map((course, index)=>(
+      {courses.length > 0 && courses.map((course, index)=>(
         <ListItem key={index} className='list-item'>
             <Grid container>
                 <Grid item xs={2}>
@@ -40,6 +41,9 @@ export default function CourseList() {
             </Grid>
         </ListItem>
       ))}
+      {courses.length === 0 && (
+        <Typography variant='overline' component='h2'>Không có dữ liệu</Typography>
+      )}
       <CourseDetailModal course={selectedCourse} open={open} setOpen={setOpen}/>
     </List>
   );
