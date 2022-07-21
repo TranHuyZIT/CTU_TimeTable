@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
-import yearSemesterSlice from "../../../store/yearSemesterSlice";
+import yearSemesterSlice from "../../../store/slices/yearSemesterSlice";
 import { useDispatch } from "react-redux";
 
 

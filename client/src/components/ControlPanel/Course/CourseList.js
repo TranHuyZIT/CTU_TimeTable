@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import './CourseList.css'
 import { courseListSelector } from '../../../store/selector';
 import CourseDetailModal from '../Modal/CourseDetailModal';
-import { Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 export default function CourseList() {
   const courses = useSelector(courseListSelector);
   const [open, setOpen] = useState(false);
@@ -21,30 +21,32 @@ export default function CourseList() {
     setSelectedCourse(course);
   }
   return (
-    <List className='scroll' id="style-1" sx={{ width: '100%', bgcolor: 'background.paper', overflowY:'scroll'}}>
-      {courses.length > 0 && courses.map((course, index)=>(
-        <ListItem key={index} className='list-item'>
-            <Grid container>
-                <Grid item xs={2}>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <SchoolIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                </Grid>
-                <Grid item xs={8}>
-                    <ListItemText primary={`${course.key}-${course.name}`} secondary={`Tín chỉ: ${course.weight}`} />
-                </Grid>
-                <Grid item xs={2}>
-                    <Button onClick={() => {handleAddButton(course)}} variant="contained">Thêm</Button>
-                </Grid>
-            </Grid>
-        </ListItem>
-      ))}
-      {courses.length === 0 && (
-        <Typography variant='overline' component='h2'>Không có dữ liệu</Typography>
-      )}
+    <>
+        <List className='scroll' id="style-1" sx={{ width: '100%', bgcolor: 'background.paper', overflowY:'scroll'}}>
+        {courses.length > 0 && courses.map((course, index)=>(
+          <ListItem key={index} className='list-item'>
+              <Grid container>
+                  <Grid item xs={2}>
+                      <ListItemAvatar>
+                      <Avatar>
+                          <SchoolIcon />
+                      </Avatar>
+                      </ListItemAvatar>
+                  </Grid>
+                  <Grid item xs={8}>
+                      <ListItemText primary={`${course.key}-${course.name}`} secondary={`Tín chỉ: ${course.weight}`} />
+                  </Grid>
+                  <Grid item xs={2}>
+                      <Button onClick={() => {handleAddButton(course)}} variant="contained">Thêm</Button>
+                  </Grid>
+              </Grid>
+          </ListItem>
+        ))}
+        {courses.length === 0 && (
+          <Typography variant='overline' component='h2'>Không có dữ liệu</Typography>
+        )}
+      </List>
       <CourseDetailModal course={selectedCourse} open={open} setOpen={setOpen}/>
-    </List>
+    </>
   );
 }

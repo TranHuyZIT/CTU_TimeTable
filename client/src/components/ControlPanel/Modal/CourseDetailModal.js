@@ -10,14 +10,13 @@ import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import { yearSemesterSelector } from '../../../store/selector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {useState, useEffect} from 'react'
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-
-
+import selectedCoursesSlice from '../../../store/slices/selectedCoursesSlice';
+import { CircularProgress } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -65,9 +64,11 @@ export default function CourseDetailModal({course, open, setOpen}) {
 
     const [groups, setGroups] = useState([]);
     const [selectedGroup, setSelectedGroup] = useState({});
+    const [loading, setLoading] = useState(true)
     
     const yearSemester = useSelector(yearSemesterSelector);
 
+    const dispatch = useDispatch();
     useEffect(() => {
         if (course.key) {
             const yearQuery = yearSemester.year.replace('-','')
@@ -75,6 +76,7 @@ export default function CourseDetailModal({course, open, setOpen}) {
              .then((res) => {
                 console.log(res);
                 setGroups(res.data);
+                setLoading(false);
              })
         }
     }, [course, yearSemester])
@@ -84,84 +86,92 @@ export default function CourseDetailModal({course, open, setOpen}) {
         console.log(event.target.value);
         setSelectedGroup(event.target.value)
     };
+    const handleClose = () => {
+        setOpen(false);
+        setGroups([]);
+        setSelectedGroup({});
+        setLoading(true);
+    }
+    const handleAddCourse = () => {
+        selectedCoursesSlice.actions.addCourse(selectedGroup);
+    }
     return (
         <div>
-        <Modal
+            <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             closeAfterTransition
             BackdropComponent={Backdrop}
             open={open}
-            onClose={() => {
-                setOpen(false);
-                setGroups([]);
-                setSelectedGroup({});
-            }}
+            onClose={handleClose}
             BackdropProps={{
             timeout: 500,
             }}
         >
-            <Fade in={open}>
-            <Box sx={style}>
-                <Typography sx={{textAlign: 'center'}} id="transition-modal-title" variant="h4" component="h2">
-                {course.name}
-                </Typography>
-                <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '10px', fontSize: '18px', flexWrap: 'wrap'}}>
-                    <div>
-                        <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
-                            Mã Học phần: 
-                        </Typography>
-                        <Typography variant='p' component='span'>
-                            {course.key}
-                        </Typography>
+            {!loading? (<Fade in={open}>
+                <Box sx={style}>
+                    <Typography sx={{textAlign: 'center'}} id="transition-modal-title" variant="h4" component="h2">
+                    {course.name}
+                    </Typography>
+                    <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '10px', fontSize: '18px', flexWrap: 'wrap'}}>
+                        <div>
+                            <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
+                                Mã Học phần: 
+                            </Typography>
+                            <Typography variant='p' component='span'>
+                                {course.key}
+                            </Typography>
+                        </div>
+                        <div>
+                            <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
+                                Tín chỉ: 
+                            </Typography>
+                            <Typography variant='p' component='span'>
+                                {course.weight}
+                            </Typography>
+                        </div>
+                        <div style={{width: '100%', marginTop: '10px'}}>
+                            {groups.length === 0 && (
+                            <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
+                                Học phần này không tồn tại ở thời gian này
+                            </Typography>)
+                            }
+                            {groups.length > 0 && (
+                                <>
+                                    <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
+                                        Vui lòng chọn nhóm: 
+                                    </Typography>
+                                    <FormControl sx={{marginTop: '10px'}} fullWidth>
+                                        <InputLabel id="group">Nhóm Học Phần</InputLabel>
+                                        <Select
+                                        labelId="group-label"
+                                        id="group"
+                                        value={selectedGroup}
+                                        label="Nhóm Học Phần"
+                                        onChange={handleChange}
+                                        >
+                                        {groups.map((group) => (
+                                            <MenuItem value={{...group}}>{`Nhóm ${group.id}, sĩ số còn lại: ${group.available}`}</MenuItem>
+                                        ))}
+                                        
+                                        </Select>
+                                    </FormControl>
+                                </>
+                                )}
+                        </div>
+                        {Object.keys(selectedGroup).length !== 0 && <ClassCard group={selectedGroup}/>}
+                        <div style={{marginLeft: 'auto'}}>
+                            <Button onClick={handleClose}>Hủy Bỏ</Button>
+                            <Button onClick={handleAddCourse}>Thêm</Button>
+                        </div>
                     </div>
-                    <div>
-                        <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
-                            Tín chỉ: 
-                        </Typography>
-                        <Typography variant='p' component='span'>
-                            {course.weight}
-                        </Typography>
-                    </div>
-                    <div style={{width: '100%', marginTop: '10px'}}>
-                        {groups.length === 0 && (
-                        <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
-                            Học phần này không tồn tại ở thời gian này
-                        </Typography>)
-                        }
-                        {groups.length > 0 && (
-                            <>
-                                <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
-                                    Vui lòng chọn nhóm: 
-                                </Typography>
-                                <FormControl sx={{marginTop: '10px'}} fullWidth>
-                                    <InputLabel id="group">Nhóm Học Phần</InputLabel>
-                                    <Select
-                                    labelId="group-label"
-                                    id="group"
-                                    value={selectedGroup}
-                                    label="Nhóm Học Phần"
-                                    onChange={handleChange}
-                                    >
-                                    {groups.map((group) => (
-                                        <MenuItem value={{...group}}>{`Nhóm ${group.id}, sĩ số còn lại: ${group.member}`}</MenuItem>
-                                    ))}
-                                    
-                                    </Select>
-                                </FormControl>
-                            </>
-                            )}
-                    </div>
-                    {Object.keys(selectedGroup).length !== 0 && <ClassCard group={selectedGroup}/>}
-                    <div style={{marginLeft: 'auto'}}>
-                        <Button>Hủy Bỏ</Button>
-                        <Button>Thêm</Button>
-                    </div>
-                </div>
-                
-            </Box>
-            </Fade>
+                </Box>
+            </Fade>)
+             : (<Box sx={{...style, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <CircularProgress/>
+             </Box>)}
         </Modal>
+        
         </div>
     );
 }
