@@ -1,6 +1,7 @@
 import './App.css';
 import Grid from '@mui/material/Grid'
 import ControlPanel from './components/ControlPanel';
+import TimeTable from './components/TimeTable/TimeTable';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import HeadingBar from './components/AppBar/HeadingBar';
@@ -42,7 +43,7 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>   
-        <Grid container>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <HeadingBar/>
           </Grid>
@@ -50,7 +51,7 @@ function App() {
             <ControlPanel/>
           </Grid>
           <Grid item xs={8}>
-
+            <TimeTable/>
           </Grid>
         </Grid>
       </ThemeProvider>

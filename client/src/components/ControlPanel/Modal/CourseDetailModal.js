@@ -34,7 +34,7 @@ function ClassCard({group}){
     console.log(group);
     return(
         group.time.map((day) => (
-            <div style={{display: 'flex', width: '100%'}}>
+            <div key={day.day} style={{display: 'flex', width: '100%'}}>
                 <div style={{width: '100%'}}>
                     <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
                         Chi Tiết: 
@@ -93,7 +93,8 @@ export default function CourseDetailModal({course, open, setOpen}) {
         setLoading(true);
     }
     const handleAddCourse = () => {
-        selectedCoursesSlice.actions.addCourse(selectedGroup);
+        dispatch(selectedCoursesSlice.actions.addCourse(selectedGroup));
+        handleClose();
     }
     return (
         <div>
@@ -133,7 +134,7 @@ export default function CourseDetailModal({course, open, setOpen}) {
                         <div style={{width: '100%', marginTop: '10px'}}>
                             {groups.length === 0 && (
                             <Typography variant='p' sx={{fontWeight: '600', marginRight: '10px'}} component='span'>
-                                Học phần này không tồn tại ở thời gian này
+                                Chưa có thông tin học phần ở thời gian này
                             </Typography>)
                             }
                             {groups.length > 0 && (
@@ -142,17 +143,19 @@ export default function CourseDetailModal({course, open, setOpen}) {
                                         Vui lòng chọn nhóm: 
                                     </Typography>
                                     <FormControl sx={{marginTop: '10px'}} fullWidth>
-                                        <InputLabel id="group">Nhóm Học Phần</InputLabel>
+                                        <InputLabel id="group-label">Nhóm Học Phần</InputLabel>
                                         <Select
                                         labelId="group-label"
                                         id="group"
+                                        defaultValue=''
                                         value={selectedGroup}
+
                                         label="Nhóm Học Phần"
                                         onChange={handleChange}
                                         >
-                                        {groups.map((group) => (
-                                            <MenuItem value={{...group}}>{`Nhóm ${group.id}, sĩ số còn lại: ${group.available}`}</MenuItem>
-                                        ))}
+                                            {groups.map((group) => (
+                                                <MenuItem key={group.class} value={group}>{`Nhóm ${group.id}, sĩ số còn lại: ${group.available}`}</MenuItem>
+                                            ))}
                                         
                                         </Select>
                                     </FormControl>
