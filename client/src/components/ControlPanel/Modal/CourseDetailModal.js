@@ -74,7 +74,6 @@ export default function CourseDetailModal({course, open, setOpen}) {
             const yearQuery = yearSemester.year.replace('-','')
             axios.get(`https://api.tools.w5team.com//courses/key/${course.key}?y=${yearQuery}&n=${yearSemester.semester}`)
              .then((res) => {
-                console.log(res);
                 setGroups(res.data);
                 setLoading(false);
              })

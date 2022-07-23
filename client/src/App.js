@@ -5,7 +5,8 @@ import TimeTable from './components/TimeTable/TimeTable';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import HeadingBar from './components/AppBar/HeadingBar';
-
+import { useSelector } from 'react-redux';
+import { selectedCoursesSelector } from './store/selector';
 const theme = createTheme({
   palette: {
     type: 'light',
@@ -40,6 +41,8 @@ const theme = createTheme({
 });
 
 function App() {
+  const selectedCourses = useSelector(selectedCoursesSelector);
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>   
@@ -51,7 +54,7 @@ function App() {
             <ControlPanel/>
           </Grid>
           <Grid item xs={8}>
-            <TimeTable/>
+            <TimeTable selectedCourses={selectedCourses}/>
           </Grid>
         </Grid>
       </ThemeProvider>

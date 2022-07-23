@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useEffect}from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import DataTableRow from './TableRow';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -15,6 +17,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    textAlign: 'center'
   },
 }));
 
@@ -27,11 +30,30 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+var Matrix = new Array(10);
 
-export default function TimeTable() {
+for (let i = 0; i < Matrix.length; i++) {
+  Matrix[i] = new Array(8);
+}
+export default function TimeTable({selectedCourses}) {
+    useEffect(()=>{
+      
+      if (selectedCourses){
+        selectedCourses.forEach((course) => {
+          course.time.forEach((courseTime) => {
+            console.log(courseTime);
+            const day = courseTime.day;
+            const startPeriod = courseTime.start;
+            const duration = courseTime.count;
+            Matrix[startPeriod][day] = course;
+          })
+        })
+      }
+      console.log(Matrix);
+    }, [selectedCourses])
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Table sx={{textAlign:'center', minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Tiết / Thứ</StyledTableCell>
@@ -44,21 +66,11 @@ export default function TimeTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-            <TableRow>
-                <StyledTableCell>1</StyledTableCell>
-            </TableRow>
-            <TableRow>
-                <StyledTableCell>2</StyledTableCell>
-            </TableRow>
-            <TableRow>
-                <StyledTableCell>3</StyledTableCell>
-            </TableRow>
-            <TableRow>
-                <StyledTableCell>4</StyledTableCell>
-            </TableRow>
-            <TableRow>
-                <StyledTableCell>5</StyledTableCell>
-            </TableRow>
+          {Matrix.map((periodArr, period) => {
+            return(
+              <DataTableRow index={period} courses={periodArr} />
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>
