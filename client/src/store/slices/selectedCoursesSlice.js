@@ -5,7 +5,11 @@ const selectedCoursesSlice = createSlice({
     initialState: [],
     reducers:{
         addCourse : (state, action) =>{
-            state.push(action.payload);
+            const stateTMP = state.filter((course) => {
+                return course.key !== action.payload.key;
+            })
+            stateTMP.push(action.payload);
+            return stateTMP;
         },
     } 
 })

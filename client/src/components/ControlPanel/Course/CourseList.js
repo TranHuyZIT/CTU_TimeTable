@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import './CourseList.css'
 import { courseListSelector } from '../../../store/selector';
 import CourseDetailModal from '../Modal/CourseDetailModal';
-import { CircularProgress, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 export default function CourseList() {
   const courses = useSelector(courseListSelector);
   const [open, setOpen] = useState(false);
@@ -26,18 +26,11 @@ export default function CourseList() {
         {courses.length > 0 && courses.map((course, index)=>(
           <ListItem key={index} className='list-item'>
               <Grid container>
-                  <Grid item xs={2}>
-                      <ListItemAvatar>
-                      <Avatar>
-                          <SchoolIcon />
-                      </Avatar>
-                      </ListItemAvatar>
-                  </Grid>
-                  <Grid item xs={8}>
+                  <Grid item xs={10}>
                       <ListItemText primary={`${course.key}-${course.name}`} secondary={`Tín chỉ: ${course.weight}`} />
                   </Grid>
                   <Grid item xs={2}>
-                      <Button onClick={() => {handleAddButton(course)}} variant="contained">Thêm</Button>
+                      <Button sx={{width: '100%'}} onClick={() => {handleAddButton(course)}} variant="contained">Thêm</Button>
                   </Grid>
               </Grid>
           </ListItem>

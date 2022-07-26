@@ -1,4 +1,4 @@
-import {useEffect}from 'react';
+import {useEffect, useState}from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import DataTableRow from './TableRow';
 import { useSelector } from 'react-redux';
 import { selectedCoursesSelector } from '../../store/selector';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -24,19 +25,19 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-var Matrix = new Array(10);
 
-for (let i = 0; i < Matrix.length; i++) {
-  Matrix[i] = new Array(8);
-}
 export default function TimeTable() {
   const selectedCourses = useSelector(selectedCoursesSelector);
+  const [matrix, setMatrix] = useState(undefined);
+  let Matrix = new Array(10);
 
-  console.log(Matrix);
+  for (let i = 0; i < Matrix.length; i++) {
+    Matrix[i] = new Array(8);
+  }
 
     useEffect(()=>{
       
-      if (selectedCourses){
+      if (selectedCourses.length > 0){
         selectedCourses.forEach((course) => {
           course.time.forEach((courseTime) => {
             console.log(courseTime);
@@ -46,6 +47,7 @@ export default function TimeTable() {
           })
         })
       }
+      setMatrix(Matrix);
     }, [selectedCourses])
   return (
     <TableContainer component={Paper}>
@@ -62,9 +64,9 @@ export default function TimeTable() {
           </TableRow>
         </TableHead>
         <TableBody sx={{height: '100%'}}>
-          {Matrix.map((periodArr, period) => {
+          {matrix && matrix.map((periodArr, period) => {
             return(
-              <DataTableRow index={period} courses={periodArr} />
+              <DataTableRow key={period} index={period} courses={periodArr} />
             )
           })}
         </TableBody>

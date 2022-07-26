@@ -48,10 +48,10 @@ function App() {
           <Grid item xs={12}>
              <HeadingBar/>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <ControlPanel/>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={9}>
             <TimeTable/>
           </Grid>
         </Grid>
