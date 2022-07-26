@@ -7,7 +7,7 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .scroll{
-    height: 615px;
+    height: 504px;
     overflow-y:scroll;
     overflow-x:hidden;
 }

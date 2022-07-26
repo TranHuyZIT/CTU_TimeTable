@@ -5,16 +5,15 @@ import TimeTable from './components/TimeTable/TimeTable';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import HeadingBar from './components/AppBar/HeadingBar';
-import { useSelector } from 'react-redux';
-import { selectedCoursesSelector } from './store/selector';
+
 const theme = createTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#a69279',
+      main: '#4a332d',
     },
     secondary: {
-      main: '#c3b091',
+      main: '#896b60',
     },
     background: {
       default: '#faf8f6',
@@ -41,20 +40,19 @@ const theme = createTheme({
 });
 
 function App() {
-  const selectedCourses = useSelector(selectedCoursesSelector);
 
   return (
-    <div className="App">
+    <div className="App" style={{overflow: 'hidden'}}>
       <ThemeProvider theme={theme}>   
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <HeadingBar/>
+             <HeadingBar/>
           </Grid>
           <Grid item xs={4}>
             <ControlPanel/>
           </Grid>
           <Grid item xs={8}>
-            <TimeTable selectedCourses={selectedCourses}/>
+            <TimeTable/>
           </Grid>
         </Grid>
       </ThemeProvider>

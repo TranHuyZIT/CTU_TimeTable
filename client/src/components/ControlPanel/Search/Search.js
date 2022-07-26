@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 
 export default function Search(){
-  const yearOptions = ['2021-2022', '2022-2023', '2023-2024']
+  const yearOptions = ['2022-2023', '2023-2024', '2024-2025']
   const semesterOptions = ['1', '2', '3']
   const [year, setYear] = useState(yearOptions[0]);
   const [semester, setSemester] = useState(semesterOptions[0])

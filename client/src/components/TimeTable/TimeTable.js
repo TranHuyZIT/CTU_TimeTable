@@ -8,12 +8,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DataTableRow from './TableRow';
-
+import { useSelector } from 'react-redux';
+import { selectedCoursesSelector } from '../../store/selector';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.secondary.main,
     color: theme.palette.common.white,
+    textAlign: 'center',
+    width: 'calc(100% / 7)'
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -21,21 +24,16 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
 var Matrix = new Array(10);
 
 for (let i = 0; i < Matrix.length; i++) {
   Matrix[i] = new Array(8);
 }
-export default function TimeTable({selectedCourses}) {
+export default function TimeTable() {
+  const selectedCourses = useSelector(selectedCoursesSelector);
+
+  console.log(Matrix);
+
     useEffect(()=>{
       
       if (selectedCourses){
@@ -44,16 +42,14 @@ export default function TimeTable({selectedCourses}) {
             console.log(courseTime);
             const day = courseTime.day;
             const startPeriod = courseTime.start;
-            const duration = courseTime.count;
             Matrix[startPeriod][day] = course;
           })
         })
       }
-      console.log(Matrix);
     }, [selectedCourses])
   return (
     <TableContainer component={Paper}>
-      <Table sx={{textAlign:'center', minWidth: 700 }} aria-label="customized table">
+      <Table sx={{textAlign:'center', minWidth: 700, borderCollapse: 'collapse', height: '100%', color: '#896b60'}} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Tiết / Thứ</StyledTableCell>
@@ -65,7 +61,7 @@ export default function TimeTable({selectedCourses}) {
             <StyledTableCell align="right">Thứ 7</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody sx={{height: '100%'}}>
           {Matrix.map((periodArr, period) => {
             return(
               <DataTableRow index={period} courses={periodArr} />
