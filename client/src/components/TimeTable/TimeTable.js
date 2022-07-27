@@ -43,7 +43,12 @@ export default function TimeTable() {
             console.log(courseTime);
             const day = courseTime.day;
             const startPeriod = courseTime.start;
-            Matrix[startPeriod][day] = course;
+            Matrix[startPeriod][day] = {
+              name: course.name,
+              id: course.id,
+              room: courseTime.room,
+              duration: courseTime.count
+            };
           })
         })
       }
