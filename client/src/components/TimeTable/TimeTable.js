@@ -17,7 +17,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.common.white,
     textAlign: 'center',
-    width: 'calc(100% / 7)'
+    width: 'calc(90% / 6)'
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -59,7 +59,7 @@ export default function TimeTable() {
       <Table sx={{textAlign:'center', minWidth: 700, borderCollapse: 'collapse', height: '100%', color: '#896b60'}} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Tiết / Thứ</StyledTableCell>
+            <StyledTableCell sx={{width: '10% !important'}}>Tiết / Thứ</StyledTableCell>
             <StyledTableCell align="right">Thứ 2</StyledTableCell>
             <StyledTableCell align="right">Thứ 3</StyledTableCell>
             <StyledTableCell align="right">Thứ 4</StyledTableCell>

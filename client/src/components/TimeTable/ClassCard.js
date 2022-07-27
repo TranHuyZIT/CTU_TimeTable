@@ -9,29 +9,19 @@ import Typography from '@mui/material/Typography';
 
 export default function ClassCard({course}) {
   return (
-    <Box sx={{ width: '100%', padding: '0', height: '100%', border: '1px solid #4a332d'}}>
+    <Box sx={{ width: '100%', padding: '0', height: '100%', border: '2px solid #4a332d'}}>
         <Card sx={{height: '100%' , display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}} variant="outlined">
-            <CardContent>
+            <CardContent sx={{padding : '8px'}}>
                 <Typography sx={{ fontSize: 18, fontWeight: '700', color: '#4a332d' }} gutterBottom>
-                    {course.name}
+                    {`${course.name} - ${course.id}`}
                 </Typography>
-                <div>
-                    <div style={{display: 'flex', justifyContent: 'flex-start'}}>
-                        <Typography sx={{ fontSize: 16, fontWeight: '700', color: '#F0c648' }} variant='p' component="p">
-                            {`Nhóm: `}
-                        </Typography>
-                        <Typography sx={{ fontSize: 16, marginLeft: '2px'}} variant='p' component="p">
-                            {course.id}
-                        </Typography>
-                    </div>
-                    <div style={{display: 'flex', justifyContent: 'flex-start'}}>
-                        <Typography sx={{ fontSize: 16, fontWeight: '700', color: '#F0c648' }} variant='p' component="p">
-                            {`Phòng: `}
-                        </Typography>
-                        <Typography sx={{ fontSize: 16, marginLeft: '2px'}} variant='p' component="p">
-                            {course.room}
-                        </Typography>
-                    </div>
+                <div style={{display: 'flex', justifyContent: 'flex-start'}}>
+                    <Typography sx={{ fontSize: 16, fontWeight: '700', color: '#F0c648' }} variant='p' component="p">
+                        {`Phòng: `}
+                    </Typography>
+                    <Typography sx={{ fontSize: 16, marginLeft: '2px'}} variant='p' component="p">
+                        {course.room}
+                    </Typography>
                 </div>
             </CardContent>
         <CardActions sx={{justifyContent: 'flex-end'}}>
