@@ -5,9 +5,12 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import { useDispatch} from 'react-redux';
+import selectedCoursesSlice from '../../store/slices/selectedCoursesSlice';
 
 export default function ClassCard({course}) {
+    const dispatch = useDispatch();
+
   return (
     <Box sx={{ width: '100%', padding: '0', height: '100%', border: '2px solid #4a332d'}}>
         <Card sx={{height: '100%' , display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}} variant="outlined">
@@ -25,7 +28,7 @@ export default function ClassCard({course}) {
                 </div>
             </CardContent>
         <CardActions sx={{justifyContent: 'flex-end'}}>
-        <Button sx={{width: '100%', backgroundColor: '#4a332d', color: 'white', transition: '0.1s transform linear', ':hover': {
+        <Button onClick={() => {dispatch(selectedCoursesSlice.actions.deleteCourse(course.key))}} sx={{width: '100%', backgroundColor: '#4a332d', color: 'white', transition: '0.1s transform linear', ':hover': {
             backgroundColor: '#4a332d !important', transform: 'scale(1.1)'
         }}} size="small">Xóa</Button>
         </CardActions>

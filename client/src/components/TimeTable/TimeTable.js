@@ -8,8 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DataTableRow from './TableRow';
-import { useSelector } from 'react-redux';
-import { selectedCoursesSelector } from '../../store/selector';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectedCoursesSelector,  } from '../../store/selector';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -29,6 +29,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 export default function TimeTable() {
   const selectedCourses = useSelector(selectedCoursesSelector);
   const [matrix, setMatrix] = useState(undefined);
+  const dispatch = useDispatch();
   let Matrix = new Array(10);
 
   for (let i = 0; i < Matrix.length; i++) {
@@ -45,6 +46,7 @@ export default function TimeTable() {
             const startPeriod = courseTime.start;
             Matrix[startPeriod][day] = {
               name: course.name,
+              key: course.key,
               id: course.id,
               room: courseTime.room,
               duration: courseTime.count
