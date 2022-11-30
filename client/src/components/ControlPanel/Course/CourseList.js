@@ -39,7 +39,7 @@ export default function CourseList() {
           <Typography variant='overline' component='h2'>Không có dữ liệu</Typography>
         )}
       </List>
-      <CourseDetailModal course={selectedCourse} open={open} setOpen={setOpen}/>
+      <CourseDetailModal course={selectedCourse} open={open} setOpen={setOpen} setSelectedSearchCourse={setSelectedCourse}/>
     </>
   );
 }

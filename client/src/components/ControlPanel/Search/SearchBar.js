@@ -15,7 +15,6 @@ export default function SearchBar() {
 
   const delayedKeyword = useDelay(searchText);
 
-
   useEffect(()=>{
     const search = async () => {
       if (!delayedKeyword) {

@@ -31,7 +31,6 @@ const style = {
 };
 
 function ClassCard({group}){
-    console.log(group);
     return(
         group.time.map((day) => (
             <div key={day.day} style={{display: 'flex', width: '100%'}}>
@@ -60,7 +59,7 @@ function ClassCard({group}){
     )
 }
 
-export default function CourseDetailModal({course, open, setOpen}) {
+export default function CourseDetailModal({course, open, setOpen, setSelectedSearchCourse}) {
 
     const [groups, setGroups] = useState([]);
     const [selectedGroup, setSelectedGroup] = useState({});
@@ -77,12 +76,14 @@ export default function CourseDetailModal({course, open, setOpen}) {
                 setGroups(res.data);
                 setLoading(false);
              })
+             .catch((error) => {
+                console.log(error);
+                setLoading(false);
+             }
+             )
         }
-    }, [course, yearSemester])
-
-
+    }, [course, yearSemester, dispatch])
     const handleChange = (event) => {
-        console.log(event.target.value);
         setSelectedGroup(event.target.value)
     };
     const handleClose = () => {
@@ -90,6 +91,7 @@ export default function CourseDetailModal({course, open, setOpen}) {
         setGroups([]);
         setSelectedGroup({});
         setLoading(true);
+        setSelectedSearchCourse({})
     }
     const handleAddCourse = () => {
         dispatch(selectedCoursesSlice.actions.addCourse(selectedGroup));
@@ -147,8 +149,6 @@ export default function CourseDetailModal({course, open, setOpen}) {
                                         labelId="group-label"
                                         id="group"
                                         defaultValue=''
-                                        value={selectedGroup}
-
                                         label="Nhóm Học Phần"
                                         onChange={handleChange}
                                         >

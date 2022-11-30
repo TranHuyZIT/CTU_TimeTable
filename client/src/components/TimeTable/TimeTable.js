@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DataTableRow from './TableRow';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectedCoursesSelector,  } from '../../store/selector';
 
 
@@ -29,7 +29,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 export default function TimeTable() {
   const selectedCourses = useSelector(selectedCoursesSelector);
   const [matrix, setMatrix] = useState(undefined);
-  const dispatch = useDispatch();
   let Matrix = new Array(10);
 
   for (let i = 0; i < Matrix.length; i++) {
@@ -41,7 +40,6 @@ export default function TimeTable() {
       if (selectedCourses.length > 0){
         selectedCourses.forEach((course) => {
           course.time.forEach((courseTime) => {
-            console.log(courseTime);
             const day = courseTime.day;
             const startPeriod = courseTime.start;
             Matrix[startPeriod][day] = {
@@ -61,13 +59,13 @@ export default function TimeTable() {
       <Table sx={{textAlign:'center', minWidth: 700, borderCollapse: 'collapse', height: '100%', color: '#896b60'}} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell sx={{width: '10% !important'}}>Tiết / Thứ</StyledTableCell>
-            <StyledTableCell align="right">Thứ 2</StyledTableCell>
-            <StyledTableCell align="right">Thứ 3</StyledTableCell>
-            <StyledTableCell align="right">Thứ 4</StyledTableCell>
-            <StyledTableCell align="right">Thứ 5</StyledTableCell>
-            <StyledTableCell align="right">Thứ 6</StyledTableCell>
-            <StyledTableCell align="right">Thứ 7</StyledTableCell>
+            <StyledTableCell sx={{width: '10% !important', border: '1px solid #896b60'}}>Tiết / Thứ</StyledTableCell>
+            <StyledTableCell sx={{border: '1px solid #896b60'}} align="right">Thứ 2</StyledTableCell>
+            <StyledTableCell sx={{border: '1px solid #896b60'}} align="right">Thứ 3</StyledTableCell>
+            <StyledTableCell sx={{border: '1px solid #896b60'}} align="right">Thứ 4</StyledTableCell>
+            <StyledTableCell sx={{border: '1px solid #896b60'}} align="right">Thứ 5</StyledTableCell>
+            <StyledTableCell sx={{border: '1px solid #896b60'}} align="right">Thứ 6</StyledTableCell>
+            <StyledTableCell sx={{border: '1px solid #896b60'}} align="right">Thứ 7</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{height: '100%'}}>

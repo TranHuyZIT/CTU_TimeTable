@@ -12,7 +12,7 @@ export default function ClassCard({course}) {
     const dispatch = useDispatch();
 
   return (
-    <Box sx={{ width: '100%', padding: '0', height: '100%', border: '2px solid #4a332d'}}>
+    <Box sx={{ width: '100%', padding: '0', height: '100%', boxSizing: 'border-box', boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px'}}>
         <Card sx={{height: '100%' , display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}} variant="outlined">
             <CardContent sx={{padding : '8px'}}>
                 <Typography sx={{ fontSize: 18, fontWeight: '700', color: '#4a332d' }} gutterBottom>
