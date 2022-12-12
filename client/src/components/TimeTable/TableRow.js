@@ -20,16 +20,19 @@ function DataTableRow({ index, courses, matrix }) {
   useEffect(() => {
     let spanned = [];
     for (let i = 0; i < 8; i++) {
-      spanned.push(true);
+      spanned.push(false);
     }
     for (let i = 0; i < matrix.length; i++) {
       let row = matrix[i];
       for (let j = 0; j < row.length; j++) {
         let col = row[j];
         if (col && index > i && index < i + col.duration) {
-          spanned[j] = false;
+          spanned[j] = true;
         }
       }
+    }
+    if (index == 6) {
+      console.log(spanned);
     }
     setRowSpanned([...spanned]);
   }, [matrix]);
@@ -48,7 +51,7 @@ function DataTableRow({ index, courses, matrix }) {
           border: "1px solid #896b60",
         }}
       >{`${index} (${periodTime[index]})`}</TableCell>
-      {rowSpanned[2] && (
+      {!rowSpanned[2] && (
         <TableCell
           key={index * 7 + 2}
           sx={{
@@ -64,7 +67,7 @@ function DataTableRow({ index, courses, matrix }) {
           {courses[2] ? <ClassCard course={courses[2]} /> : ""}
         </TableCell>
       )}
-      {rowSpanned[3] && (
+      {!rowSpanned[3] && (
         <TableCell
           key={index * 7 + 3}
           sx={{
@@ -80,7 +83,7 @@ function DataTableRow({ index, courses, matrix }) {
           {courses[3] ? <ClassCard course={courses[3]} /> : ""}
         </TableCell>
       )}
-      {rowSpanned[4] && (
+      {!rowSpanned[4] && (
         <TableCell
           key={index * 7 + 4}
           sx={{
@@ -96,7 +99,7 @@ function DataTableRow({ index, courses, matrix }) {
           {courses[4] ? <ClassCard course={courses[4]} /> : ""}
         </TableCell>
       )}
-      {rowSpanned[5] && (
+      {!rowSpanned[5] && (
         <TableCell
           key={index * 7 + 5}
           sx={{
@@ -112,7 +115,7 @@ function DataTableRow({ index, courses, matrix }) {
           {courses[5] ? <ClassCard course={courses[5]} /> : ""}
         </TableCell>
       )}
-      {rowSpanned[6] && (
+      {!rowSpanned[6] && (
         <TableCell
           key={index * 7 + 6}
           sx={{
@@ -128,7 +131,7 @@ function DataTableRow({ index, courses, matrix }) {
           {courses[6] ? <ClassCard course={courses[6]} /> : ""}
         </TableCell>
       )}
-      {rowSpanned[7] && (
+      {!rowSpanned[7] && (
         <TableCell
           key={index * 7 + 7}
           sx={{
